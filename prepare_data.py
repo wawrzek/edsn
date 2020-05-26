@@ -78,21 +78,22 @@ def prepare_gnuplot(sphere):
 
 def save_data(stars):
     csv.register_dialect('gnuplot', delimiter=' ')
-    with open('data3d.dat','w') as f:
+    with open(filename_output,'w') as f:
         writer = csv.writer(f, 'gnuplot')
         writer.writerows(stars)
 
 #### MAIN PART
-filename = 'mySphere15.json'
+filename_cache = 'mySphere15.json'
+filename_output = 'data3d.dat'
 system_name = "V1688 Aquilae"
 radius = 15.0
 
 # Read data from local cache (if exists)
 # or create it to avoid unnecessary calls to EDSM
-if os.path.isfile(filename):
-    sphere = json.load(open(filename))
+if os.path.isfile(filename_cache):
+    sphere = json.load(open(filename_cache))
 else:
-    sphere = create_cache(filename, system_name, radius)
+    sphere = create_cache(filename_cache, system_name, radius)
 
 # Prepare information for GNUplot data file
 stars = prepare_gnuplot(sphere)
