@@ -4,6 +4,8 @@ The main tools is a [GNUplot](http://gnuplot.sourceforge.net/) script taking as 
 Additionally, in the repository there is a python script calling [EDSM](https://www.edsm.net/) API to obtain required information and store them into GNUplot data file.
 Finally, there is an example data file and the [image](example_map.jpg) of the output map.
 
+![Star Systems in distance of 15 Light Years from V1688 Aquilae](example_map.jpg).
+
 ## GNUplot
 The "[make_starmap.gnuplot](make_starmap.gnuplot)" script takes as an input the "[example.dat](example.dat)" file.
 Input file name can be change in the line 18 of the script.
