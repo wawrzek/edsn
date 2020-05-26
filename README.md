@@ -5,8 +5,8 @@ Additionally, in the repository there is a python script calling [EDSM](https://
 Finally, there is an example data file and the [image](example_map.jpg) of the output map.
 
 ## GNUplot
-make_starmap.gnuplot takes as an input the "example.dat" file.
-The file name can be change in the line 18 of the script.
+The "[make_starmap.gnuplot](make_starmap.gnuplot)" script takes as an input the "[example.dat](example.dat)" file.
+Input file name can be change in the line 18 of the script.
 Graph titles is defined in line 14.
 The radius of circles are controlled by the "radius" variable in line 5 and the number of them is set by a loop in line 16.
 
@@ -20,7 +20,7 @@ It is an integer value of a RGB colour number.
 
 ## Python
 
-"prepare_data.py" is an example script taking information about V1688 Aquilae star system and surrounding area from the EDSM website (*create_cache* function), and saves it in the example.dat file (*save_data* function).
+The "[prepare_data.py](prepare_data.py)" is an example script taking information about V1688 Aquilae star system and surrounding area from the EDSM website (*create_cache* function), and saves it in the example.dat file (*save_data* function).
 The script uses a main star type as a base for integer representation of the RGB colour matching stars colour (*def_color* function).
 It also translates stars coordinates by shifting the origin of a coordinate system into the central star (*prepare_gnuplot* function).
 The central star system name as well radius and filenames can be changed in lines 86 to 89 of the script.
