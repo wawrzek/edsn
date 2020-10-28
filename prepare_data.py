@@ -97,6 +97,7 @@ def def_color(star_type):
 
 def save_script(radius, system, filename, datafile):
 
+    radius_circles = radius / 5
     script_text = f"""#!/usr/bin/env gnuplot
 
 set parametric
@@ -112,7 +113,7 @@ unset border
 
 set title "Star Systems in distance of {radius} Light Years from {system}" font ",20"
 
-splot for [n = 1 : 3 ] \\
+splot for [n = 1 : {radius_circles} ] \\
   n * fx(v), n * fy(v), fz lt 3 lw 1 lc "gray70" notitle, \\
   '{datafile}' using 2:3:4:1 with labels right offset -1,-1,-1 font ",13" notitle, \\
   '' using 2:3:4:5 ps 2 pt 7 lc rgbcolor var notitle,\\
@@ -163,7 +164,7 @@ filenames = {}
 verbose = False
 default_opts = {
     "system_name": "V1688 Aquilae",
-    "radius": 15.0,
+    "radius": 15,
 }
 
 if len(opts) > 0:
@@ -183,7 +184,7 @@ else:
     print ("No option specify. Using default ones")
 
 try:
-    radius
+    radius = int(radius)
 except NameError:
     radius = set_default('radius', default_opts)
 
@@ -195,7 +196,7 @@ except NameError:
 if verbose:
     print(f"Prepare map for {system_name}")
 
-filenames['core'] = system_name.lower().replace(' ','') + '-r' + radius
+filenames['core'] = system_name.lower().replace(' ','') + '-r' + str(radius)
 filenames['cache'] = filenames['core'] + '.json'
 filenames['data'] = filenames['core'] + '.3d.dat'
 filenames['gnuplot'] = filenames['core'] + '.gnuplot'

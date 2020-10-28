@@ -1,0 +1,4 @@
+0.2 - The Python script takes radius and system name from commandline. It also
+creates Gnuplot script for each dataset (so the map has  appropriate name).
+0.1 - initial release. Python script to download data from edsm and prearing
+them as data input for Gnuplot. The Gnuplot script to create a 3D map.
