@@ -95,7 +95,35 @@ def def_color(star_type):
 
 
 
-def prepare_gnuplot(sphere):
+def save_script(radius, system, filename, datafile):
+
+    script_text = f"""#!/usr/bin/env gnuplot
+
+set parametric
+radius = 5
+fy(v) = radius * cos(v)
+fx(v) = radius * sin(v)
+fz = 0
+
+unset xtics
+unset ytics
+unset ztics
+unset border
+
+set title "Star Systems in distance of {radius} Light Years from {system}" font ",20"
+
+splot for [n = 1 : 3 ] \\
+  n * fx(v), n * fy(v), fz lt 3 lw 1 lc "gray70" notitle, \\
+  '{datafile}' using 2:3:4:1 with labels right offset -1,-1,-1 font ",13" notitle, \\
+  '' using 2:3:4:5 ps 2 pt 7 lc rgbcolor var notitle,\\
+  '' using 2:3:4 ps 2 pt 6 lc black notitle, \\
+  '' using 2:3:4 with impulses dt 3 lc black notitle \\
+    """
+    with open(filename,'w') as f:
+        print (f'Creating {filename}')
+        f.write(script_text)
+
+def prepare_gnuplot_data(sphere):
     zero = sphere[0]['coords']
     new_sphere = []
     # Translate location for each system
@@ -119,9 +147,10 @@ def prepare_gnuplot(sphere):
             print ("%s has no colour" %system['name'])
     return(new_sphere)
 
-def save_data(stars, filename_output):
+def save_data(stars, filename):
     csv.register_dialect('gnuplot', delimiter=' ')
-    with open(filename_output,'w') as f:
+    with open(filename,'w') as f:
+        print (f'Creating {filename}')
         writer = csv.writer(f, 'gnuplot')
         writer.writerows(stars)
 
@@ -130,6 +159,7 @@ def save_data(stars, filename_output):
 
 opts, args = getopt.getopt(sys.argv[1:], "hs:r:v", ["help", "system=", "radius=" "verbose"])
 
+filenames = {}
 verbose = False
 default_opts = {
     "system_name": "V1688 Aquilae",
@@ -165,22 +195,26 @@ except NameError:
 if verbose:
     print(f"Prepare map for {system_name}")
 
-filename = system_name.lower().replace(' ','')
+filenames['core'] = system_name.lower().replace(' ','') + '-r' + radius
+filenames['cache'] = filenames['core'] + '.json'
+filenames['data'] = filenames['core'] + '.3d.dat'
+filenames['gnuplot'] = filenames['core'] + '.gnuplot'
 
 # Read data from local cache (if exists)
 # or create it to avoid unnecessary calls to EDSM
-filename_cache = f'{filename}.json'
-if os.path.isfile(filename_cache):
-    sphere = json.load(open(filename_cache))
+if os.path.isfile(filenames['cache']):
+    sphere = json.load(open(filenames['cache']))
 else:
-    sphere = create_cache(filename_cache, system_name, radius)
+    sphere = create_cache(filenames['cache'], system_name, radius)
 
 if sys.platform != 'win32':
     print_basic_info(sphere)
 
 # Prepare information for GNUplot data file
-stars = prepare_gnuplot(sphere)
+stars = prepare_gnuplot_data(sphere)
 
 # Save data to the file
-filename_output ='{}.3d.dat'.format(filename)
-save_data(stars, filename_output)
+save_data(stars, filenames['data'])
+# Save Gnuplot scripts
+save_script(radius, system_name, filenames['gnuplot'], filenames['data'])
+

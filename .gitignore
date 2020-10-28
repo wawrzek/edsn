@@ -137,3 +137,6 @@ dmypy.json
 *.dat
 # Cached (json) files
 *.json
+# gnuplot scripts
+*.gnuplot
+
