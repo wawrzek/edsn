@@ -24,7 +24,7 @@ The script is controlled by following options:
 
 def set_default(option, default_opts):
     if verbose:
-        print(f"Set '{option}' to it's default value {default_opts[option]}")
+        print(f"Set '{option}' to its default value {default_opts[option]}")
     return default_opts[option]
 
 
@@ -38,8 +38,9 @@ def create_cache(filename, system_name, radius):
     url = url_server + url_api + url_sphere + url_parameters
     if verbose:
         print (url)
-
     sphere = requests.get(url).json()
+    if verbose:
+        pprint.pprint(sphere)
     sphere = sorted(sphere, key=lambda k: k["distance"])
     with open(filename,'w') as outfile:
        json.dump(sphere, outfile)
@@ -63,32 +64,43 @@ def color_to_int(color):
     return(int(color, 0))
 
 def def_color(star_type):
+    o = r"^O"
+    b = r"^B"
     a = r"^A"
     f = r"^F"
     g = r"^G"
     k = r"^K"
-    l = r"^L"
-    y = r"^Y"
     m = r"M"
-    wd = r"White Dwarf"
-    tt = r"T Tauri Star"
+    l = r"^L"
+    t = r"^T\ \(Brown"
+    y = r"^Y"
+    wd = r"White\ Dwarf"
+    tt = r"T\ Tauri\ Star"
 
-    if re.search(a, star_type):
-        color = '0xF0FFFF'
+    if re.search(o, star_type):
+        color = '0xBEDCFF' # blue
+    elif re.search(b, star_type):
+        color = '0xF0FFFF' # blue-white
+    elif re.search(a, star_type):
+        color = '0xFFFFFF' # white
     elif re.search(f, star_type):
-        color = '0xFFFFF0'
+        color = '0xFFFFF0' # white-yellow
     elif re.search(g, star_type):
-        color = '0xFFDF00'
+        color = '0xFFDF00' # yellow
     elif re.search(k, star_type):
-        color = '0xFFA500'
-    elif re.search(l, star_type):
-        color = '0xA52A2A'
+        color = '0xFFA500' # orange
     elif re.search(m, star_type):
-        color = '0xFF4500'
+        color = '0xFF4500' # red
     elif re.search(wd, star_type):
-        color = '0xFFFFFF'
+        color = '0xFFFFFF' # white dwarf
+    elif re.search(l, star_type):
+        color = '0xA52A2A' # l brown dwarf
+    elif re.search(t, star_type):
+        color = '0xA53C6E' # t brown dwarf
+    elif re.search(y, star_type):
+        color = '0x7828B4' # y brown dwarf
     elif re.search(tt, star_type):
-        color = '0x8B0000'
+        color = '0xFF7B00'
     else:
         color = '0xBEBEBE'
     return(color_to_int(color))
@@ -125,6 +137,8 @@ splot for [n = 1 : {radius_circles} ] \\
         f.write(script_text)
 
 def prepare_gnuplot_data(sphere):
+    if verbose:
+        pprint.pprint(sphere)
     zero = sphere[0]['coords']
     new_sphere = []
     # Translate location for each system
