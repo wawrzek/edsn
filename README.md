@@ -10,7 +10,7 @@ Finally, there is an example data file, original GNUplot script and the [image](
 
 ## Python
 
-The "[prepare_data.py](prepare_data.py)" takes as an input the name of star system from Elite Dangerous and the radius defining how much space around it to draw on the map.
+The [prepare_data.py](prepare_data.py) takes as an input the name of star system from Elite Dangerous and the radius defining how much space around it to draw on the map.
 If no arguments are specified the script prepares information for a map of V1688 Aquilae 15 light years neighbourhood.
 Information are downloaded from the EDSM website and saved into a json cache file (*create_cache* function).
 The script uses a main star type as a base for integer representation of the RGB colour matching stars colour (*def_color* function).
@@ -44,6 +44,9 @@ The first one is the star system name.
 Columns two, three and four are coordinates with a central star in the origin of axes (0,0,0).
 The last (fifth) column represent the color of a main star.
 It is an integer value of a RGB colour number.
+Colours definition are collected in the [star_colours.odg](star_colours/star_colours.odg) (see below).
+
+![Star Colours](star_colours/star_colours.png)
 
 # Links
 
