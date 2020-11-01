@@ -4,9 +4,12 @@ With 0.2 release the Python script became the main tool.
 It calls [EDSM](https://www.edsm.net/) API to obtain required information and store into a file in a GNUplot data format.
 Additionally, the script prepares a GNUplot script file ready to run.
 The [GNUplot](http://gnuplot.sourceforge.net/) script taking as an input list of star systems and producing 3D star map.
-Finally, there is an example data file, original GNUplot script and the [image](examples/release_0.1/example_map.jpg) of the output map in the [examples](examples/release_0.1) folder.
 
+## Examples
+Finally, there is an examples in the [examples](examples) directory.
+That include the orginal image of Star System in less that 15 Light Years from V1688 Aquilae.
 ![Star Systems in distance of 15 Light Years from V1688 Aquilae](examples/release_0.1/example_map.jpg).
+
 
 ## Python
 
