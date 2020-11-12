@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import getopt
-import pprint
-from termcolor import colored
-import requests
-import re
-import json
 import csv
+import getopt
+import json
+import os
+import pprint
+import re
+import sys
+import requests
+from termcolor import colored
 
 
 def usage():
@@ -23,13 +23,13 @@ The script is controlled by following options:
     """)
 
 
-def set_default(option, default_opts):
+def set_default(option, default_opts, verbose=False):
     if verbose:
         print (f"Set '{option}' to its default value {default_opts[option]}")
     return default_opts[option]
 
 
-def create_cache(filename, system_name, radius):
+def create_cache(filename, system_name, radius, verbose=False):
 
     url_server = "https://www.edsm.net"
     url_api = "/api-v1"
@@ -46,10 +46,10 @@ def create_cache(filename, system_name, radius):
     with open(filename, 'w') as outfile:
         json.dump(sphere, outfile)
 
-    return(sphere)
+    return sphere
 
 
-def print_basic_info(sphere):
+def print_basic_info(sphere, verbose=False):
     for system in sphere:
         try:
             pop = system['information']['population']
@@ -61,11 +61,11 @@ def print_basic_info(sphere):
         print (colored(f"{name:<30s}\t {pop:15,d}".format(), color))
 
 
-def color_to_int(color):
-    return(int(color, 0))
+def color_to_int(color, verbose=False):
+    return int(color, 0)
 
 
-def def_color(star_type):
+def def_color(star_type, verbose=False):
     o = r"^O"
     b = r"^B"
     a = r"^A"
@@ -105,10 +105,10 @@ def def_color(star_type):
         color = '0xFF7B00'
     else:
         color = '0xBEBEBE'
-    return(color_to_int(color))
+    return color_to_int(color)
 
 
-def save_script(radius, system, filename, datafile):
+def save_script(radius, system, filename, datafile, verbose=False):
 
     radius_circles = radius / 5
     script_text = f"""#!/usr/bin/env gnuplot
@@ -138,7 +138,7 @@ splot for [n = 1 : {radius_circles} ] \\
         f.write(script_text)
 
 
-def prepare_gnuplot_data(sphere):
+def prepare_gnuplot_data(sphere, verbose=False):
     if verbose:
         pprint.pprint(sphere)
     zero = sphere[0]['coords']
@@ -162,10 +162,10 @@ def prepare_gnuplot_data(sphere):
         new_sphere.append((system['name'], x, y, z, color))
         if color == 'black':
             print ("%s has no colour" % system['name'])
-    return(new_sphere)
+    return new_sphere
 
 
-def save_data(stars, filename):
+def save_data(stars, filename, verbose=False):
     csv.register_dialect('gnuplot', delimiter=' ')
     with open(filename, 'w') as f:
         print (f'Creating {filename}')
