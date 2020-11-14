@@ -28,11 +28,11 @@ jobs:
       - name: Run Simple tests
         run: |
           cd tests
-          python simple_tests.py || ( cat test.log; sha1sum *.json)
+          python simple_tests.py || (cat test.log exit 1)
       - name: Archive results of a test run
         uses: actions/upload-artifact@v2
         with:
-          name: jsons
-          path: tests/*.json
+          name: 3d.data
+          path: tests/*.3d.dat
 
 
