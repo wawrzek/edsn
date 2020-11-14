@@ -224,18 +224,18 @@ def main():
     if os.path.isfile(filenames['cache']):
         sphere = json.load(open(filenames['cache']))
     else:
-        sphere = create_cache(filenames['cache'], system_name, radius)
+        sphere = create_cache(filenames['cache'], system_name, radius, verbose)
 
     if sys.platform != 'win32':
         print_basic_info(sphere)
 
 # Prepare information for GNUplot data file
-    stars = prepare_gnuplot_data(sphere)
+    stars = prepare_gnuplot_data(sphere, verbose)
 
 # Save data to the file
-    save_data(stars, filenames['data'])
+    save_data(stars, filenames['data'], verbose)
 # Save Gnuplot scripts
-    save_script(radius, system_name, filenames['gnuplot'], filenames['data'])
+    save_script(radius, system_name, filenames['gnuplot'], filenames['data'], verbose)
 
 
 if __name__ == '__main__':

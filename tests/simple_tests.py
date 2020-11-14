@@ -26,13 +26,17 @@ def compare_hashes(filename):
         return errors_hashes
 
 
+logfile = open("test.log","w")
 print ("Test script with default values")
-command1 = subprocess.run('../prepare_data.py', capture_output=True, check=True)
+command1 = subprocess.run(['../prepare_data.py', '-v'], capture_output=True, check=True, text=True)
 errors += compare_hashes('v1688aquilae-r15.json')
-
+logfile.write(command1.stdout)
+logfile.flush()
 print ("Test script with system=Sol, radius=20")
-command2 = subprocess.run(['../prepare_data.py', '-s', 'Sol', '-r', '20'], capture_output=True, check=True)
+command2 = subprocess.run(['../prepare_data.py', '-v', '-s', 'Sol', '-r', '20'], capture_output=True, check=True, text=True)
 errors += compare_hashes('sol-r20.json')
+logfile.write(command2.stdout)
+logfile.flush()
 
 if errors > 0:
     sys.exit(1)

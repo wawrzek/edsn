@@ -28,6 +28,6 @@ jobs:
       - name: Run Simple tests
         run: |
           cd tests
-          python simple_tests.py
+          python simple_tests.py || cat test.log
 
 
