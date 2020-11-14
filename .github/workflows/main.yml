@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Simple Tests
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.8]
+        python-version: [3.7, 3.8]
     steps:
       - name: Download code
         uses: actions/checkout@v2
@@ -26,6 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests termcolor
       - name: Install packages
-        run: python tests/simple_tests.py
+        run: |
+          cd tests
+          python simple_tests.py
 
 
