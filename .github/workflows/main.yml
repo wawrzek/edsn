@@ -29,5 +29,10 @@ jobs:
         run: |
           cd tests
           python simple_tests.py || ( cat test.log; sha1sum *.json)
+      - name: Archive results of a test run
+        uses: actions/upload-artifact@v2
+        with:
+          name: jsons
+          path: *.json
 
 
