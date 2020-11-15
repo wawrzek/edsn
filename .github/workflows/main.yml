@@ -28,7 +28,7 @@ jobs:
       - name: Run Simple tests
         run: |
           cd tests
-          python simple_tests.py || (cat test.log exit 1)
+          python simple_tests.py || (echo "========\n LOGS"; cat test.log; exit 1)
       - name: Archive results of a test run
         uses: actions/upload-artifact@v2
         with:
@@ -36,5 +36,4 @@ jobs:
           path: |
             tests/
             !tests/simple_tests.py
-        
 
