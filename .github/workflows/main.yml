@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, windows-latest, macosx-latest]
     strategy:
       matrix:
         python-version: [3.7, 3.8]
@@ -32,7 +32,9 @@ jobs:
       - name: Archive results of a test run
         uses: actions/upload-artifact@v2
         with:
-          name: 3d.data
-          path: tests/*.3d.dat
-
+          name: tests_working_directory
+          path: |
+            tests/
+            !tests/simple_tests.py
+        
 
