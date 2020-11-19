@@ -33,7 +33,7 @@ jobs:
       - name: Archive results of a test run
         uses: actions/upload-artifact@v2
         with:
-          name: tests_working_directory-${{ matrix.os }}-${{ matrix.python_version }}
+          name: tests_working_directory-${{ matrix.os }}-${{ matrix.python-version }}
           path: |
             tests/
             !tests/simple_tests.py
