@@ -37,4 +37,5 @@ jobs:
           path: |
             tests/
             !tests/simple_tests.py
+        if: ${{ always() }}
 
