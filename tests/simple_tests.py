@@ -16,6 +16,12 @@ hashes = {
 
 errors = 0
 
+
+if sys.platform == 'win32':
+    script_path = "..\prepare_data.py"
+else:
+    script_path = "../prepare_data.py"
+
 def compare_hashes(filename):
     errors_hashes = 0
     with open(filename) as f:
@@ -34,12 +40,12 @@ def compare_hashes(filename):
 
 logfile = open("test.log","w")
 print ("Test script with default values")
-command1 = subprocess.run(['../prepare_data.py', '-v'], capture_output=True, check=True, text=True)
+command1 = subprocess.run([script_path, '-v'], capture_output=True, check=True, text=True)
 errors += compare_hashes('v1688aquilae-r15.3d.dat')
 logfile.write(command1.stdout)
 logfile.flush()
 print ("Test script with system=Sol, radius=20")
-command2 = subprocess.run(['../prepare_data.py', '-v', '-s', 'Sol', '-r', '20'], capture_output=True, check=True, text=True)
+command2 = subprocess.run([script_path, '-v', '-s', 'Sol', '-r', '20'], capture_output=True, check=True, text=True)
 errors += compare_hashes('sol-r20.3d.dat')
 logfile.write(command2.stdout)
 logfile.flush()
