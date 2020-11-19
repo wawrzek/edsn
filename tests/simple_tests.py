@@ -24,7 +24,7 @@ else:
 
 def compare_hashes(filename):
     errors_hashes = 0
-    with open(filename) as f:
+    with open(filename, newline='\n') as f:
         text = f.read().encode('utf-8')
         hash_cal = hashlib.sha1(text).hexdigest()
         if hash_cal == hashes[filename]:
