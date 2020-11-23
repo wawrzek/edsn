@@ -66,42 +66,42 @@ def color_to_int(color, verbose=False):
 
 
 def def_color(star_type, verbose=False):
-    o = r"^O"
-    b = r"^B"
-    a = r"^A"
-    f = r"^F"
-    g = r"^G"
-    k = r"^K"
-    m = r"M"
-    l = r"^L"
-    t = r"^T\ \(Brown"
-    y = r"^Y"
-    wd = r"White\ Dwarf"
-    tt = r"T\ Tauri\ Star"
+    star_o = r"^O"
+    star_b = r"^B"
+    star_a = r"^A"
+    star_f = r"^F"
+    star_g = r"^G"
+    star_k = r"^K"
+    star_m = r"M"
+    star_l = r"^L"
+    star_t = r"^T\ \(Brown"
+    star_y = r"^Y"
+    star_wd = r"White\ Dwarf"
+    star_tt = r"T\ Tauri\ Star"
 
-    if re.search(o, star_type):
+    if re.search(star_o, star_type):
         color = '0xBEDCFF'  # blue
-    elif re.search(b, star_type):
+    elif re.search(star_b, star_type):
         color = '0xF0FFFF'  # blue-white
-    elif re.search(a, star_type):
+    elif re.search(star_a, star_type):
         color = '0xFFFFFF'  # white
-    elif re.search(f, star_type):
+    elif re.search(star_f, star_type):
         color = '0xFFFFF0'  # white-yellow
-    elif re.search(g, star_type):
+    elif re.search(star_g, star_type):
         color = '0xFFDF00'  # yellow
-    elif re.search(k, star_type):
+    elif re.search(star_k, star_type):
         color = '0xFFA500'  # orange
-    elif re.search(m, star_type):
+    elif re.search(star_m, star_type):
         color = '0xFF4500'  # red
-    elif re.search(wd, star_type):
+    elif re.search(star_wd, star_type):
         color = '0xFFFFFF'  # white dwarf
-    elif re.search(l, star_type):
+    elif re.search(star_l, star_type):
         color = '0xA52A2A'  # l brown dwarf
-    elif re.search(t, star_type):
+    elif re.search(star_t, star_type):
         color = '0xA53C6E'  # t brown dwarf
-    elif re.search(y, star_type):
+    elif re.search(star_y, star_type):
         color = '0x7828B4'  # y brown dwarf
-    elif re.search(tt, star_type):
+    elif re.search(star_tt, star_type):
         color = '0xFF7B00'
     else:
         color = '0xBEBEBE'
@@ -186,15 +186,15 @@ def main():
     }
 
     if len(opts) > 0:
-        for o, a in opts:
-            if o in ["-h", "--help"]:
+        for option, argument in opts:
+            if option in ["-h", "--help"]:
                 usage()
                 sys.exit()
-            elif o in ["-s", "--system"]:
-                system_name = a
-            elif o in ["-r", "--radius"]:
-                radius = a
-            elif o in ["-v", "--verbose"]:
+            elif option in ["-s", "--system"]:
+                system_name = argument
+            elif option in ["-r", "--radius"]:
+                radius = argument
+            elif option in ["-v", "--verbose"]:
                 verbose = True
             else:
                 assert False, "unhandled option"
